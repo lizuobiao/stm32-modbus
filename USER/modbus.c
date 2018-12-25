@@ -1,4 +1,4 @@
-#include  "modbus.h"
+#include "modbus-layout.h"
 #include  "usart.h"	 
 #include <string.h>
 
@@ -483,10 +483,10 @@ eMBException mb_read_input_register_resp(struct mb_ws_t *mb_ws_ptr)
 		mb_ws_ptr->pkt_buf[2] = byte_cnt;
 		/* 发送数据区清0 */
 		memset(mb_ws_ptr->pkt_buf+3, 0 , byte_cnt);
-
-//		status =  mb_input_register_cb(mb_ws_ptr->pkt_buf+3,
-//		              						 start_address,
-//		              						 read_cnt);
+		
+		status =  mb_input_register_cb(mb_ws_ptr->pkt_buf+3,
+		              						 start_address,
+		              						 read_cnt);
 		
 		mb_ws_ptr->tx_len = 3+byte_cnt;
 	}

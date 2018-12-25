@@ -3,6 +3,7 @@
 "..\obj\stm32f10x_it.o"
 "..\obj\system_stm32f10x.o"
 "..\obj\modbus.o"
+"..\obj\modbus-layout.o"
 "..\obj\timer.o"
 "..\obj\delay.o"
 "..\obj\sys.o"
