@@ -28,6 +28,8 @@ struct mb_range_t
 	u16  size;
 };
 
+
+void set_temp_adc(u16 temp,u16 adc_value);
 extern eMBException mb_input_register_cb(u8 * buf, u16 start_address, u16 reg_num);
 #endif
 

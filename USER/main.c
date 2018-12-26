@@ -3,7 +3,17 @@
 #include "sys.h"
 #include "usart.h"
 #include "timer.h"
-#include "modbus.h"
+#include "modbus-layout.h"
+
+float adc_fl,temp_fl;
+//传感器数据刷新
+void temp_adc_update(void)
+{
+		u16 adc_int = (u16)(adc_fl*1000);
+		u16 temp_int = (u16)(temp_fl*1000);
+		delay_ms(100);
+		set_temp_adc(adc_int,temp_int);
+}
 
 int main(void)
 {

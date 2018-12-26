@@ -25,8 +25,15 @@ int  mb_range_hit(u32 addr, u32 count, struct mb_range_t *range_ptr, u32 array_c
 u16 ai_data[MAX_AI] = {0x1111,0x2222,0x3333,0x4444};
 struct mb_range_t  ir_array[] = 
 {
-  	{(u16 *)&ai_data[1], IR_ANALOG_INPUT_BASE,  MAX_AI-2},
+  	{(u16 *)&ai_data[0], IR_ANALOG_INPUT_BASE,  MAX_AI},
 };
+
+void set_temp_adc(u16 temp,u16 adc_value)
+{
+		ai_data[0] = temp;
+		ai_data[1] = adc_value;
+}
+
 #define IR_ARRAY_SIZE  (sizeof(ir_array)/sizeof(struct mb_range_t))
 
 eMBException mb_input_register_cb(u8 * buf, u16 start_address, u16 reg_num)
@@ -52,3 +59,4 @@ eMBException mb_input_register_cb(u8 * buf, u16 start_address, u16 reg_num)
 
 	return MB_EX_NONE;
 }
+

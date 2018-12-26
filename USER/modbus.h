@@ -90,6 +90,8 @@ struct mb_ws_t
 };
 
 /********************外部变量 **************************/
+void temp_adc_update(void);
+
 extern struct mb_ws_t  mb_ws;
 void  md_pkt_deal(void);
 #endif

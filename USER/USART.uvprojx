@@ -432,6 +432,11 @@
               <FileType>1</FileType>
               <FilePath>.\modbus.c</FilePath>
             </File>
+            <File>
+              <FileName>modbus-layout.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\modbus-layout.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -1,6 +1,7 @@
 #include "modbus-layout.h"
 #include  "usart.h"	 
 #include <string.h>
+#include "delay.h"
 
 static const u8 aucCRCHi[] = {
     0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
@@ -455,7 +456,7 @@ eMBException mb_write_muti_coil_resp(struct mb_ws_t *mb_ws_ptr)
  *  crc16(hi)           |  crc16(hi)
  */
 #define MB_READ_INPUT_DISCRETE_SIZE  	8
-
+uint8_t md_flag = 0;//1 接收到mb 读输入寄存器 2，传感器数据更新，0，等待
 eMBException mb_read_input_register_resp(struct mb_ws_t *mb_ws_ptr)
 {
 	//int              i;
@@ -483,6 +484,9 @@ eMBException mb_read_input_register_resp(struct mb_ws_t *mb_ws_ptr)
 		mb_ws_ptr->pkt_buf[2] = byte_cnt;
 		/* 发送数据区清0 */
 		memset(mb_ws_ptr->pkt_buf+3, 0 , byte_cnt);
+		
+		//去刷新传感器数据
+		temp_adc_update();
 		
 		status =  mb_input_register_cb(mb_ws_ptr->pkt_buf+3,
 		              						 start_address,
@@ -579,6 +583,8 @@ void  md_pkt_deal(void)
 		mb_ws.pkt_buf[mb_ws.tx_len+1] = (u8)(crc16_val>>8);
 		
 		mb_ws.tx_len += MB_CRC_LEN;
+		
+		delay_ms(100);
 
 		USART1_Send_Data(mb_ws.pkt_buf,mb_ws.tx_len);
 		
